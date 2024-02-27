@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Noah's Analytical Work</title>
+    <link rel="stylesheet" href="css/analytical_stylesheet.css"> <!-- Link to your CSS file -->
+    
+</head>
+
+<body>
+    <header class="navigation-header">
+        
+        <a href="index.html" class="nav-item home">Noah</a> <!-- Link to home page -->
+        <div class="arrow">&#8594;</div> <!-- Visual arrow -->
+        <a href="analytical.html" class="nav-item analytical active">Analytical</a> <!-- Link to analytical page -->
+        
+    </header>
+        <!-- Existing header and page-border content goes here -->
+    
+    <div class="first-page" id="firstPage">
+        
+        <div class="analytical-page">
+            <h1 class="page-title">Analytical Work</h1>
+            <!-- Content related to analytical work goes here -->
+        </div>
+        <div class="top-section">
+            <div class="intro-paragraph-container">
+                <div class="intro-paragraph">
+                    <div class = "intro-header">
+                        <h3>Introduction</h3>
+                </div>
+                <p> My name's Noah and a multi-faceted professional with a keen analytical mind, as evidenced by his role as a 
+                    Demand Planning Data Analyst at Backroads, where his insights have led to significant revenue improvements. 
+                    His academic foundation in Computer Science and Sociology from Bowdoin College, culminating in a Cum Laude 
+                    degree, is further distinguished by an honors project that won the Matilda White Riley Prize. With hands-on 
+                    experience at NASA's Jet Propulsion Laboratory and a history of adventurous leadership demonstrated during a 
+                    NOLS expedition to Denali, Noah's blend of technical expertise, strategic thinking, and real-world experience 
+                    makes him a standout in data-driven and sociological analysis. His interests, which range from computational 
+                    geometry to urban planning, reveal a dynamic individual committed to leveraging technology for social advancement.
+                    <br> </br> 
+                    If you're here as a potential emplooyer or looking for a quick profesisional synopsis, click the buttons to the right to explore. <br> </br> For those intreseted in my analytical thinking more outside of tranditional profesisional formats, look below and explore. </p>
+                </div>
+            </div>
+            <div class="buttons-container">
+            <div class="button" id="resume">Resume</div>
+            <div class="button" id="cover-letter">Cover Letter</div>
+            <div class="button" id="github">GitHub</div>
+            </div>
+        </div>
+    </div>
+    <div class="second-page" id="secondPage">
+        <div class="top-tab">
+            
+            <h2>Scroll Up For More Work</h2>            
+        </div>
+        <div class="horizontal-line-container"></div>
+        <div class="large-rounded-square">
+            
+        </div>
+    </div>
+  
+    <script>
+    
+    document.addEventListener("DOMContentLoaded", function() {
+    const secondPage = document.querySelector('.second-page');
+    const lineSpacing = 50; // The vertical spacing between each line in pixels
+    const numberOfLines = Math.floor(secondPage.offsetHeight / lineSpacing);
+
+    for (let i = 0; i < numberOfLines; i++) {
+        const lineContainer = document.createElement('div');
+        lineContainer.classList.add('horizontal-line-container');
+        lineContainer.style.top = (100 + i * lineSpacing) + 'px'; // Adjusts the starting position and spacing
+        secondPage.appendChild(lineContainer);
+    }
+    });
+
+
+
+     window.addEventListener('scroll', function() {
+    var secondPage = document.querySelector('.second-page');
+    var windowHeight = window.innerHeight; // Get the viewport height
+    var scrollY = window.pageYOffset || document.documentElement.scrollTop; // Get the current vertical scroll position
+
+    if (scrollY > windowHeight) {
+        // If the user has scrolled more than 100% of the viewport height, snap the second page into place
+        secondPage.style.transform = 'translateY(-7vh)'; // Keep 10vh of the second page visible at the top
+    } else {
+        // Calculate the translateY value based on how much the user has scrolled
+        // Ensures that at most scrolled up, 10vh of the second page is still showing
+        var translateYValue = Math.min(100 - (scrollY / windowHeight * 100), 90) + 'vh';
+        secondPage.style.transform = `translateY(${translateYValue})`;
+    }
+
+    // Ad
+});
+
+
+
+    </script>
+</body>
+</html>

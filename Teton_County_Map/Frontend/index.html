@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Teton County Web Mapping Example</title>
+    <style>
+        body {
+            background-color: tan;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        h1 {
+            color: black;
+            text-align: center;
+            font-size: 72px;
+            margin: 0 0 20px 0; /* Added bottom margin for spacing */
+        }
+        h2 {
+          text-align: center;
+          width: 60%; /* Ensure the text wraps properly */
+          margin: 0 0 20px 0; /* Added bottom margin for spacing */
+        }
+        .button-container {
+            display: flex;
+            flex-direction: column; /* Stack buttons vertically */
+            align-items: center; /* Center buttons horizontally */
+        }
+        .button {
+            background-color: white;
+            border: none;
+            color: black;
+            padding: 15px 32px;
+            border: 3px solid black;
+            text-align: center;
+            text-decoration: none;
+            font-size: 24px;
+            margin: 4px 2px; /* Adjusted for vertical spacing */
+            cursor: pointer;
+            border-radius: 25px;
+            transition: background-color 0.3s;
+        }
+        .go-to-map:hover {
+            background-color: rgba(0, 255, 0, 0.5); /* Semi-transparent green */
+        }
+        .return-to-portfolio:hover {
+            background-color: rgba(0, 0, 255, 0.5); /* Semi-transparent blue */
+        }
+    </style>
+</head>
+<body>
+    <h1>Teton County Web Mapping Example</h1>
+    <h2>This map has not been fully optimized and was built to run as a static website. Speed and smoothness are easily gained by hosting the data on a server, but for a simple proof of ability, I didn't want to incur server costs. I hope you enjoy!!</h2>
+    <div class="button-container">
+        <button onclick="location.href='map.html'" class="button go-to-map">Go to Map</button>
+        <button onclick="location.href='portfolio.html'" class="button return-to-portfolio">Return to Portfolio</button>
+    </div>
+</body>
+</html>

@@ -1,0 +1,719 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    overflow: auto; /* Allow scrolling */
+    background-color: #000;
+}
+
+header {
+    background-color: black; /* Set the header background color */
+    height: 50px;
+    color: white;
+    display: flex;
+    justify-content: flex-start; /* Align the menu to the left */
+    align-items: center;
+    padding: 0 20px; /* Add some padding around the menu icon */
+    position: fixed; /* Make the header fixed at the top */
+    width: 100%; /* Ensure the header spans the full width */
+    top: 0;
+    left: 0;
+    z-index: 1000; /* Ensure the header is above other content */
+}
+.hamburger-menu .menu-icon {
+    cursor: pointer;
+    font-size: 30px; /* Adjusted for a larger icon */
+}
+
+.dropdown-menu {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 50px;
+    left: 0;
+    width: auto; /* Width to fit content */
+    padding: 10px; /* Padding around menu items */
+    z-index: 1001;
+}
+
+.dropdown-menu.show-menu {
+    display: flex;
+}
+
+.menu-item {
+    background: black; /* Initial background color */
+    color: white; /* Text color */
+    border: 5px solid transparent; /* Initial border color */
+    border-color: white;
+    border-radius: 15px; /* Rounded corners */
+    margin: 5px 0; /* Margin between items */
+    padding: 10px 20px; /* Padding inside items */
+    transition: background-color 0.3s, border-color 0.3s; /* Smooth transition for background and border color */
+    cursor: pointer;
+}
+
+.menu-item a {
+    text-decoration: none;
+    text-align: center;
+    color: inherit; /* Inherit text color from .menu-item */
+    display: block; /* Make the entire area clickable */
+}
+
+/* Hover effects matching the cards */
+.menu-item.analytical:hover {
+    border-color: #ff4d4d; /* Red border */
+    background-color: rgba(255, 77, 77, 0.5); /* Translucent red background */
+}
+
+.menu-item.creative:hover {
+    border-color: #9c4dff; /* Purple border */
+    background-color: rgba(156, 77, 255, 0.5); /* Translucent purple background */
+}
+
+.menu-item.body:hover {
+    border-color: #29a329; /* Green border */
+    background-color: rgba(41, 163, 41, 0.5); /* Translucent green background */
+}
+
+.menu-item.name:hover {
+    background-color: rgba(0, 123, 255, 0.5); /* Translucent blue background like the title card */
+    border-color: #007bff; /* Blue border */
+}
+
+.snap-container {
+    margin-top: 0px; /* Adjust based on header height */
+    height: 100vh; /* Ensure container height is the remainder of the viewport */
+    
+}
+
+
+
+
+
+#fading {
+    min-height: 100vh; /* Ensure this section is tall enough to allow for scrolling */
+}
+
+#home {
+    background: linear-gradient(
+        to right,
+        rgba(255, 35, 35, .75) 33.3%, /* Left color - Neon Red */
+        rgba(180, 77, 255, .75) 33.3%, /* Center color - Neon Purple */
+         /* Right color repeat to maintain hard transition */
+        rgba(180, 77, 255, .75) 66.6%, /* Center color repeat */
+        rgba(41, 163, 41, .75) 66.6% /* Left color repeat */
+    );
+    background-size: cover;
+    position: relative; /* For absolute positioning of children */
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */ 
+    z-index: 0;
+    height: 100vh;
+
+}
+/* To push the image forward and add the greeting and welcome message */
+.image-container {
+    position: relative; /* Set to relative to contain absolutely positioned children */
+    width: 100%;
+    height: 100%;
+    z-index: 1; /* Below the text */
+}
+
+.photo {
+    /* Common styles for all photos */
+    position: absolute;
+    width: 20%; /* Example size, adjust as needed */
+    height: 20vh; /* Adjust as needed */
+    border-radius: 20px; /* Rounded corners for images */
+    border: 5px solid black; /* Corrected border property */
+    background-size: cover;
+    background-position: center;
+    /* box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5); /* Optional: shadow for depth */
+    opacity: 1;
+    visibility: visible;
+    background-size: cover; /* Cover the entire area of the element */
+    background-position: center;
+    opacity: 1; /* Initial opacity set to fully visible */
+    transition: opacity 0.5s ease-in-out;
+}
+
+
+#central-photo {
+    background: url('/Users/noahgans/Desktop/Portfolio Website/Noah_Gans.github.io/images/image1.jpeg'); /* Replace with your image path */
+    width: 50%; /* Larger size for the central photo */
+    height: 40%;
+    z-index: 3;
+    top: 30%;
+    left: 25%;
+    background-size: cover; /* Cover the entire area of the element */
+    background-position: center;
+    
+
+    
+}
+
+#photo1 {
+    background-image: url('/Users/noahgans/Desktop/Portfolio Website/Noah_Gans.github.io/images/SPC.jpeg'); /* Replace with your image path */
+    /* Position for photo1 */
+    top: 7%;
+    left: 35%;
+}
+
+#photo2 {
+    background-image: url('/Users/noahgans/Desktop/Portfolio Website/Noah_Gans.github.io/images/dark planning.jpg'); /* Replace with your image path */
+    /* Position for photo2 */
+    top: 60%;
+    left: 30%;
+}
+#photo3 {
+    background-image: url('/Users/noahgans/Desktop/Portfolio Website/Noah_Gans.github.io/images/IMG_8427.jpg'); /* Replace with your image path */
+    /* climbing */
+    top: 6%;
+    left: 5%;
+    width:15%;
+    height:30%;
+}
+
+#photo4 {
+    background-image: url('/Users/noahgans/Desktop/Portfolio Website/Noah_Gans.github.io/images/IMG_0718.jpeg'); /* Replace with your image path */
+    /* Position for photo2 */
+    top: 12%;
+    left: 78%;
+    height: 25%;
+
+}
+#photo5 {
+    background-image: url('/Users/noahgans/Desktop/Portfolio Website/Noah_Gans.github.io/images/urban pastures.jpg'); /* Replace with your image path */
+    /* Position for photo1 */
+    top: 67%;
+    left: 30%;
+    width: 30%;
+    height: 30%;
+}
+
+
+#photo6 {
+    background-image: url('/Users/noahgans/Desktop/Portfolio Website/Noah_Gans.github.io/images/IMG_0615.JPG'); /* Replace with your image path */
+    /* Vase*/
+    width:10%;
+    height:30%;
+    top: 60%;
+    left: 5%;
+    background-size: 150%; 
+    background-position: center 0px;
+}
+
+/* Add additional IDs and positions for other photos as needed */
+
+
+.title {
+    position: absolute; /* This allows you to place your text anywhere over the image */
+    z-index: 2; /* Above the image container */
+    color: black; /* Choose a color that makes the text stand out over your images */
+    text-align: center; /* Center the text */
+    top: 65%;
+    left: 65%;
+    font-family: monospace;
+    font-size: 100px;
+    
+}
+
+
+
+
+#fading {
+    height: 4000px;
+    background: 
+    linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 0) 0%, /* Start transitioning to black halfway down */
+            rgb(0, 0, 0) 20% /* Fully black at the bottom */
+        ),
+        linear-gradient(
+            to right,
+            rgba(255, 35, 35, .75) 33.3%, 
+            rgba(180, 77, 255, .75) 33.3%, 
+            rgba(180, 77, 255, .75) 66.6%, 
+            rgba(41, 163, 41, .75) 66.6%
+        );
+        
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.fade-in-section {
+    width: 60%; /* Adjust width as needed */
+    padding: 20px; /* Padding inside the rounded square */
+    border-radius: 15px; /* Rounded corners */
+    background-color: transparent; /* Background color of the square */
+    border: 5px solid white;
+    color: white; /* Text color */
+    font-size: 26px;
+    text-align: left; /* Center the text inside the square */
+    position: absolute; /* Position it absolutely within the fading section */
+    top: 10%; /* Position it at the top of the fading section */
+    left: 60%; /* Center it horizontally */
+    transform: translateX(-50%) translateY(20px); /* Adjust horizontal positioning and start translated downwards */
+    opacity: 0; /* Start with the container invisible */
+    transition: opacity 1.5s ease-out, transform 1.5s ease-out; /* Smooth transition for the opacity and transform */
+}
+.fade-in-section h1 {
+    color: white; /* Example: Change the color */
+    font-size: 2em; /* Example: Change the font size */
+    margin-bottom: 0.5em; /* Example: Adjust the bottom margin */
+    text-transform: uppercase;
+    text-align: center;/* Example: Make the text uppercase */
+    /* Add more styling rules as needed */
+}
+
+
+.fade-in-section.visible {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0); /* Reset translation to 0 */
+}
+
+
+
+.title-container {
+    position: absolute;
+    right: 10%; /* Adjust this percentage to move the text container */
+    top: 65%;
+    transform: translateY(-50%); /* Vertically center the text container */
+    padding: 20px; /* Add some padding around the text */
+    z-index: 2; /* Ensure text is above the image */
+    text-align: left; /* Align text to the left within the container */
+    max-width: 60%; /* Maximum width of the text container */
+    font-size: 100px; /* Increase the font size */
+    font-family: Arial;   
+}
+.subheader-container {
+    position: absolute;
+    right: 12%; /* Adjust this percentage to move the text container */
+    top: 75%;
+    transform: translateY(-50%); /* Vertically center the text container */
+    padding: 20px; /* Add some padding around the text */
+    z-index: 2; /* Ensure text is above the image */
+    text-align: left; /* Align text to the left within the container */
+    max-width: 60%; /* Maximum width of the text container */
+    font-size: 30px; /* Increase the font size */
+    font-family: Arial;   
+}
+
+
+/* Add this to your existing CSS */
+/* ...existing CSS... */
+
+
+.about-this-page{
+    color: white; /* Example: Change the color */
+    font-size: 2em; /* Example: Change the font size */
+    margin-bottom: 0.5em; /* Example: Adjust the bottom margin */
+    text-transform: uppercase;
+    width: 60%; /* Adjust width as needed */
+    padding: 20px; /* Padding inside the rounded square */
+    border-radius: 15px; /* Rounded corners */
+    background-color: transparent; /* Background color of the square */
+    border: black;
+    color: white; /* Text color */
+    position: absolute; /* Position it absolutely within the fading section */
+    top: 31%; /* Position it at the top of the fading section */
+    left: 62%; /* Center it horizontally */
+    transform: translateX(-50%) translateY(20px); /* Adjust horizontal positioning and start translated downwards */
+    opacity: 0; /* Start with the container invisible */
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out; /* Smooth transition for the opacity and transform */
+    
+}
+
+.about-this-page.visible {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0); /* Reset translation to 0 */
+}
+
+.animated-boxes {
+position: relative;
+width: 100%;
+top: 1000px; /* Example: 50px from the top of the #fading section */
+}
+
+.box {
+width: 100px; /* Example size */
+height: 100px; /* Example size */
+background-color: #333; /* Placeholder color */
+position: absolute;
+left: -150px; /* Start off-screen */
+opacity: 0;
+transition: all 0.5s ease-in-out;
+z-index: 4;
+top: 9%;
+}
+
+/* Individual styles for each box to stagger their animation */
+#box1 {
+    background: black;
+    border: 5px solid white;
+    color: white;
+    border-radius: 30px;
+    padding: 1rem;
+    width: 200px;
+    height: 300px; /* Keep the width fixed or use max-width for responsive design */
+    cursor: pointer;
+    display: flex; /* Use Flexbox inside card */
+    flex-direction: column; /* Stack children vertically */
+    justify-content: space-between; /* Distribute space between items */
+    transition-delay: 0.2s; /* Start after box1 */
+}
+
+#box2 {
+    background: black;
+    border: 5px solid white;
+    color: white;
+    border-radius: 30px;
+    padding: 1rem;
+    width: 200px;
+    height: 300px; /* Keep the width fixed or use max-width for responsive design */
+    cursor: pointer;
+    display: flex; /* Use Flexbox inside card */
+    flex-direction: column; /* Stack children vertically */
+    justify-content: space-between; /* Distribute space between items */
+    transition-delay: 0.4s; /* Start after box2 */
+}
+
+#box3 {
+    background: black;
+    border: 5px solid white;
+    color: white;
+    border-radius: 30px;
+    padding: 1rem;
+    width: 200px;
+    height: 300px; /* Keep the width fixed or use max-width for responsive design */
+    cursor: pointer;
+    display: flex; /* Use Flexbox inside card */
+    flex-direction: column; /* Stack children vertically */
+    justify-content: space-between; /* Distribute space between items */
+    transition-delay: 0.6s; /* Start after box3 */
+}
+  
+.bullet-discription {
+    width: 60%; /* Adjust width as needed */
+    padding: 20px; /* Padding inside the rounded square */
+    border-radius: 15px; /* Rounded corners */
+    background-color: transparent; /* Background color of the square */
+    color: white; /* Text color */
+    font-size: 28px; /* Adjusted for better readability */
+    text-align: left; /* Align text to the left inside the square */
+    position: absolute; /* Change to relative for natural document flow, or keep absolute if needed */
+    margin: auto; /* Center the box if using relative positioning */
+    top: 43%; /* Adjust or remove if using relative positioning */
+    left: 45%; /* Center it horizontally */
+    transform: translateX(-50%); /* Adjust horizontal positioning */
+    opacity: 1; /* Start with the container visible or animate as needed */
+    transition: opacity 1.5s ease-out, transform 1.5s ease-out; /* Smooth transition for opacity and transform */
+}
+
+ul {
+    list-style-type: disc; /* Use disc for bullet points */
+    padding-left: 20px; /* Indent bullet points */
+}
+
+li {
+    margin-bottom: 10px; /* Space out the bullet points */
+}
+
+
+/* Base styles for statements with initial hidden state */
+.top-statement, .middle-statement, .bottom-statement {
+    opacity: 0; /* Start with the container invisible */
+    transform: translateY(20px); /* Start translated downwards */
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out; /* Smooth transition for the opacity and transform */
+    /* Keep your existing styles */
+}
+
+/* Styles for when statements become visible */
+.top-statement.visible, .middle-statement.visible, .bottom-statement.visible {
+    opacity: 1;
+    transform: translateY(0); /* Reset translation to 0 */
+}
+.top-statement {
+    position: absolute;
+    width: 100vw;
+    left: 0;
+    top: 60%;
+    color: white;
+    font-size: 48px;
+    text-align: center;
+}
+
+/* Your existing specific styles for .middle-statement */
+.middle-statement {
+    position: absolute;
+    width: 100vw;
+    left: 0;
+    top: 75%;
+    color: white;
+    font-size: 48px;
+    text-align: center;
+}
+
+/* Your existing specific styles for .bottom-statement */
+.bottom-statement {
+    position: absolute;
+    width: 100vw;
+    left: 0;
+    top: 90%;
+    color: white;
+    font-size: 48px;
+    text-align: center;
+}
+
+.top-left {
+    position: absolute;
+    left: 20%; /* Position .top-left elements at 20% of the .top-statement (or page) width */
+    /* Other styles as needed */
+}
+
+.top-right {
+    position: absolute;
+    left: 65%; /* Position .top-right elements at 80% of the .top-statement (or page) width */
+    /* Adjust as necessary to account for the element's width if you want its right edge at 80% */
+    /* Other styles as needed */
+}
+
+
+.middle-statement .top-left, .bottom-statement .bottom-left {
+    position: absolute;
+    left: 20%; /* Position at 20% of the parent width */
+    /* Additional styling as needed */
+}
+
+.bottom-statement .bottom-left{
+    position: absolute;
+    left: 12%; /* Position at 20% of the parent width */
+    /* Additional styling as needed */
+}
+
+.middle-statement .top-right{
+    position: absolute;
+    left: 67%; /* Position at 80% of the parent width, adjust if necessary for the element's width */
+    /* Additional styling as needed */
+}
+
+.bottom-statement .bottom-right {
+    position: absolute;
+    left: 65%; /* Position at 80% of the parent width, adjust if necessary for the element's width */
+    /* Additional styling as needed */
+}
+
+
+
+
+
+
+
+
+
+.parent {
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center; /* Centers vertically, remove if not needed */
+    /* Ensure the parent container has a defined height if you want vertical centering */
+}
+
+
+
+
+.about-title {
+    display: block; /* Use block to apply auto margins */
+    position: relative; /* or 'absolute' if you want to position it relative to the first positioned ancestor */
+    width: fit-content; /* This makes the width of the element as wide as its content */
+    margin-left: auto; /* Auto margin for left */
+    margin-right: auto; /* Auto margin for right */
+    /* Other styles */
+    color: white;
+    background: black;
+    padding: 1rem 2rem;
+    border-radius: 300px; /* Adjust as necessary for an oval shape */
+    border: 5px solid white; /* White border for the title */
+    font-size: 2rem;
+    transition: background-color 0.3s, border-color 0.3s; /* Smooth transition for background and border color changes */
+    margin-bottom: 10%;
+}
+
+
+.about-title:hover {
+    background-color: rgba(0, 123, 255, 0.2); /* 20% translucent blue background */
+    border-color: #007bff; /* Blue border */
+}
+
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap; /* Allows cards to wrap to the next line if the container width is exceeded */
+    justify-content: space-around; /* Keeps space around items */
+    align-items: stretch; /* Stretches items to fill the container */
+    margin-top: 5%; /* Adjust as needed to move higher */
+}
+
+
+
+.card h3 {
+    font-size: 36px; /* Adjust the font size as needed */
+    margin-top: 0; /* Remove the top margin */
+    margin-bottom: 10px; /* Adjust bottom margin as needed */
+    font-size: 36px; /* Adjust the font size as needed */
+    text-align: center;
+
+}
+
+
+
+#about .card.analytical:hover {
+    border-color: #ff4d4d; /* Red border */
+    background-color: rgba(255, 77, 77, 0.2); /* 20% translucent red background */
+}
+
+#about .card.creative:hover {
+    border-color: #9c4dff; /* Purple border */
+    background-color: rgba(156, 77, 255, 0.2); /* 20% translucent purple background */
+}
+
+#about .card.body:hover {
+    border-color: #29a329; /* Green border */
+    background-color: rgba(41, 163, 41, 0.2); /* 20% translucent green background */
+}
+
+.card {
+    background: black;
+    border: 5px solid white;
+    color: white;
+    border-radius: 30px;
+    padding: 1rem;
+    width: 350px;
+    height: 500px; /* Keep the width fixed or use max-width for responsive design */
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: flex; /* Use Flexbox inside card */
+    flex-direction: column; /* Stack children vertically */
+    justify-content: space-between; /* Distribute space between items */
+    position: relative; /* Needed for absolute positioning of pseudo-elements */
+}
+
+.card::after {
+    content: '';
+    position: absolute;
+    width: 2px; /* Width of the line */
+    background-color: white; /* Color of the line */
+    bottom: 50%; /* Adjust based on the card's position */
+    left: 50%; /* Start from the center of the card */
+    transform: translateX(-50%); /* Center the line horizontally */
+    display: none; /* Hide by default */
+}
+.card:hover::after {
+    display: block; /* Show the line on hover */
+}
+
+.card_sub_header_text{
+    color: white;
+    text-align: center;
+    margin-top: 0; /* Adjust or remove the top margin */
+    margin-bottom: 10px; /* Adjust bottom margin as needed */
+    font-size: 24px; /* Keep your font size adjustment */
+    text-align: center;
+    
+}
+
+.card-content {
+    margin-top: 0;
+    color: white;
+    list-style: inside; /* Ensures bullets are inside and aligned left */
+    visibility: hidden; /* Initially hides the bullets */
+    opacity: 0; /* Initially sets bullets as transparent */
+    transition: visibility 0s, opacity 0.5s linear; /* Smooth transition for bullets */
+    text-align: left; /* Aligns text to the left */
+    text-align: top;
+    font-size: 36;
+    flex-grow: 1; /* Allow the card content to expand */
+    display: flex;
+    flex-direction: column;
+}
+
+.card-content li {
+    font-size: 24px; /* Adjust the font size as needed */
+}
+
+.card-content.visible {
+    visibility: visible; /* Makes bullets visible */
+    opacity: 1; /* Makes bullets fully opaque */
+}
+
+.card-link {
+    color: inherit; /* Preserve text color */
+    text-decoration: none; /* Remove underline from links */
+    display: block; /* Make the link fill the card */
+}
+
+.dynamic-text {
+    opacity: 0;
+    transition: opacity 2s ease-in-out;
+}
+
+.dynamic-text.visible {
+    opacity: 1;
+}
+
+.card-link {
+    text-decoration: none; /* Remove underline from links */
+    color: inherit; /* Keep the text color the same as the card */
+}
+
+.contact_title{
+    text-align: center;
+    align-items: top;
+    justify-content: center;
+    align-items: center;
+}
+
+.contact-section {
+    font-family: 'Times New Roman', Times, serif; /* Apply Times New Roman font */
+    color: white; /* Ensure text is readable against a black background */
+    display: flex; /* Use flexbox for layout */
+    flex-direction: column; /* Stack children vertically */
+    justify-content: center; /* Center content vertically */
+    align-items: center; /* Center content horizontally */
+    text-align: center; /* Center text alignment */
+    background-color: black; /* Ensure background is black */
+    height: 100vh; /* Full viewport height */
+    position: relative; /* Needed for absolute positioning of title */
+}
+
+.contact_title {
+    position: absolute; /* Position the title absolutely within the section */
+    top: 25%; /* Position the title 3/4 up (25% from the top) */
+    width: 100%; /* Ensure the title spans the full width for center alignment */
+    font-style: bold;
+    font-size: 32px;
+    margin: 0; /* Resets default margin */
+    padding: 0; /* Resets default padding */
+    
+}
+
+.contact-info {
+    display: flex;
+    justify-content: space-around; /* Adjust this to space-around fors even spacing */
+    width: 100%;
+    max-width: 1500px; /* Adjust as needed */
+    position: absolute; /* Position the contact info absolutely */
+    bottom: 40%; /* Adjust this value as needed to position the contact info */
+    font-size: 24px;
+}
+
+.contact-item {
+    flex-basis: 100%; /* Example width, adjust as needed */
+    text-align: center; /* Center the text within each contact item */ 
+}
+
+.contact-item a {
+    color: white; /* Ensure links are white */
+    text-decoration: none; /* Optional: removes underline from links */
+}

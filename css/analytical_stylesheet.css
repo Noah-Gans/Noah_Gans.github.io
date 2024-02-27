@@ -1,0 +1,244 @@
+
+body, html {
+    margin: 0;
+    background: #171717; 
+    
+    z-index: 2; 
+}
+
+
+.navigation-header {
+    border: 5px solid white; /* Existing white border */
+    border-radius: 15px; /* Preserving the rounded corners if desired */
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    position: fixed;
+    top: 0;
+    left: 20px; /* Add spacing from the left edge */
+    right: 20px; /* Add spacing from the right edge */
+    margin-top: 10px; /* Add spacing from the top edge */
+    box-sizing: border-box;
+    background-color: #000; /* or your desired header background color */
+    background-clip: padding-box; /* Ensures the background only extends to the padding area, not the border */
+    z-index: 100; /* High z-index to ensure it's above other content */
+}
+
+body {
+    padding-top: 80px; /* Adjust based on the height of your navigation header */
+    /* Other styles remain unchanged */
+}
+
+
+.page-title{
+    color: white;
+    text-align: center;
+
+}
+
+.nav-item {
+    display: inline-block;
+    margin: 0 10px; /* Space around navigation items */
+    padding: 10px 15px;
+    border-radius: 15px;
+    border: 2px solid; /* Solid border for the bubbles */
+    color: white; /* Text color */
+    text-decoration: none; /* Remove underline from links */
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.arrow {
+    display: inline-block;
+    color: white; /* White arrow */
+    font-size: 24px; /* Adjust size to match border thickness */
+    line-height: 0; /* Adjust line height to vertically align the arrow */
+    vertical-align: middle; /* Center the arrow vertically */
+    align-items: center;
+}
+
+.nav-item.home {
+    border-color: #007bff; /* Blue border for Noah */
+    background-color: rgba(0, 123, 255, 0.2); /* Translucent blue fill */
+    align-items: center;
+}
+
+.nav-item.analytical.active, .nav-item.analytical:hover {
+    border-color: #ff4d4d; /* Red border for Analytical */
+    background-color: rgba(255, 77, 77, 0.2); /* Translucent red fill */
+    align-items: center;
+}
+
+
+.top-section {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    align-items: stretch; /* Changed from 'start' to 'stretch' */
+}
+
+.intro-paragraph-container {
+    border: 5px solid white;
+    border-radius: 75px;
+    padding: 20px;
+    width: 60%; /* Adjusted width to maintain the layout */
+}
+.intro-header{
+    text-align: center;
+    font-size: 30;
+}
+
+.intro-paragraph {
+    color: white;
+    font-size: 24px;
+}
+
+.buttons-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    width: 40%; /* Adjusted width to maintain the layout */
+    border-radius: 15px;
+}
+
+
+  /* Base styles for buttons */
+/* Base styles for buttons */
+.button {
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 150px;
+    border-radius: 50px;
+    border: 5px solid; /* Specify border without color */
+    color: white;
+    font-family: Arial, sans-serif;
+    margin: 10px 0;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, border-color 0.3s, font-weight 0.3s, border-width .1s margin .1s; /* Smooth transition for hover effects */
+}
+
+/* Styles for the resume button */
+#resume {
+    border-color: #ff4d4d; /* Red border */
+    /*background-color: rgba(255, 77, 77, 0.2); /* Translucent red background */
+}
+
+/* Styles for the cover-letter button */
+#cover-letter {
+    border-color: #9c4dff; /* Purple border */
+    /*background-color: rgba(156, 77, 255, 0.2); /* Translucent purple background */
+}
+
+/* Styles for the github button */
+#github {
+    border-color: #29a329; /* Green border */
+    /*background-color: rgba(41, 163, 41, 0.2); /* Translucent green background */
+}
+
+/* Hover styles for all buttons */
+.button:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* Less translucent on hover */
+    margin: 10px 0;
+    font-weight: bold; /* Make text bold */
+}
+
+/* Specific hover styles for each button */
+#resume:hover {
+    background-color: rgba(255, 77, 77, 0.5); /* Less translucent red */
+}
+
+#cover-letter:hover {
+    background-color: rgba(156, 77, 255, 0.5); /* Less translucent purple */
+}
+
+#github:hover {
+    background-color: rgba(41, 163, 41, 0.5); /* Less translucent green */
+}
+
+
+
+
+
+
+
+
+
+.first-page {
+    margin-top: 90px;
+    position: fixed; /* Keep the first page fixed */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh; /* Set the height to full viewport height */
+    z-index: 1; /* Ensure it's above the normal flow but below the second page */
+    overflow-y: auto; /* Allow scrolling within the first page if content overflows */
+    background-image: url('images/urban pastures.jpg'); /* Set the background image */
+    background-size: cover; /* Cover the entire area of the element */
+    background-position: center; /* Center the background image */
+}
+
+
+.second-page {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-top: 10vh;
+    width: 100%;
+    min-height: 1vh;
+    z-index: 2;
+    background: transparent;
+    transform: translateY(90vh);
+    transition: transform 0.5s ease-out;
+    box-sizing: border-box;
+    border-radius: 0 0 20px 20px;
+    background-color: #f3de8b;
+    height: 10000px;
+}
+
+.second-page::before,
+.second-page::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 2px;
+    background-color: red;
+}
+
+.second-page::before {
+    left: 10%; /* Adjust this value for the exact position */
+}
+
+.second-page::after {
+    left: 10.2%; /* Adjust this value for the exact position and the gap between the lines */
+}
+
+/* Inner container for horizontal blue lines */
+.second-page .horizontal-line-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 100px; /* Start the first blue line 100px from the top */
+    background-image: linear-gradient(to bottom, transparent 48px, blue 48px, blue 50px, transparent 50px);
+    background-size: 100% 50px; /* Set the size of the repeating pattern */
+    background-repeat: repeat-y; /* Repeat the pattern vertically */
+}
+
+.top-tab{
+    transform: translateY(-60%);
+    background-color: #f3de8b;
+    border-radius: 20px;
+    border: solid .2px #c2ad79;
+    margin: 20px auto;
+    margin-bottom: 0px;
+    align-items: center;
+    width: 30%;
+    color: black;
+    height: 120px; 
+    text-align: center;
+}

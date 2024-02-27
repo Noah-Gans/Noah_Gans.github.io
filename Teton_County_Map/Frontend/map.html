@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Geographic Data Viewer</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="css/map_style.css" rel="stylesheet" type="text/css" />
+  
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+<!-- Load Leaflet MarkerCluster CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css" />
+
+
+  <style>
+    #map { height: 100vh; }
+    #selector { margin: 20px; }
+    
+  </style>
+</head>
+<body>
+    <div id="basemap-selector" class="basemap-selector">
+        <div class="basemap-option" data-basemap="osm">
+          <div class="basemap-thumbnail osm-thumbnail"></div>
+          OSM
+        </div>
+        <div class="basemap-option" data-basemap="satellite">
+          <div class="basemap-thumbnail satellite-thumbnail"></div>
+          Satellite
+        </div>
+        <div class="basemap-option" data-basemap="blank">
+          <div class="basemap-thumbnail blank-thumbnail"></div>
+          Blank
+        </div>
+      </div>
+      
+  <div id="selector-container">
+    <span class="selector-label">Current Layer:</span>
+    <select id="datasetSelector">
+      <option value="None">None</option>
+      <option value="toj_zone">Town Of Jackson Zoning</option>
+      <option value="ownership">Ownership</option>
+      <option value="easment">Easment</option>
+      <option value="adress">County Address</option>
+      <option value="county_zoning">County Zoning</option>
+    </select>
+  </div>
+
+  <div id="map"></div>
+
+  <script src="https://d3js.org/topojson.v3.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
+  <script src="js/county_border.js"></script>
+  <script src="js/ownershiptopo.js"></script>
+  <script src="js/toj_zone.js"></script>
+  <script src="js/adress.js"></script>
+  <script src="js/easment.js"></script>
+  <script src="js/county_zoning.js"></script>
+
+
+
+  <script>
+    var datasets = {
+    toj_zone: { data: toj_zone, type: 'geojson' }, // Assuming this is GeoJSON
+    ownership: { data: ownershipTopo, type: 'topojson', objectName: 'ownership' }, // Example for TopoJSON
+    easment: { data: easment, type: 'geojson' }, // Assuming this is GeoJSON
+    adress: { data: adress, type: 'geojson' }, // Assuming this is GeoJSON
+    county_zoning: { data: county_zoning, type: 'geojson' } // Assuming this is GeoJSON
+    
+    
+    // Add or modify entries as needed based on the actual data format
+};
+
+var map = L.map('map').setView([44, -110.5], 8);
+var markers = L.markerClusterGroup({
+    disableClusteringAtZoom: 17 // Clustering is disabled at zoom level 17 and beyond
+});
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(map);
+
+// County border layer with black border and no fill
+var countyBorderLayer = L.geoJSON(county_border, {
+    style: { color: "#000", weight: 2, fillOpacity: 0 }
+});
+
+countyBorderLayer.addTo(map);
+
+var legend = L.control({position: 'topright'});
+var currentLayer = null;
+
+
+
+
+function updateLayer(selectedDataset) {
+    if (currentLayer) {
+        map.removeLayer(currentLayer);
+        currentLayer = null;
+    }
+
+    if (map.hasLayer(markers)) {
+        map.removeLayer(markers);
+        markers.clearLayers(); // Clear existing markers
+    }
+
+    if (selectedDataset === 'adress') {
+        populateAddressMarkers(adress.features.map(feature => ({
+            lat: feature.geometry.coordinates[1],
+            lng: feature.geometry.coordinates[0],
+            properties: feature.properties
+        })));
+        if (!map.hasLayer(markers)) {
+            map.addLayer(markers);
+        }
+        return;
+    }
+
+    var datasetInfo = datasets[selectedDataset];
+    if (!datasetInfo) return;
+    
+    if (datasetInfo.type === 'topojson' && selectedDataset === 'ownership') {
+        // Convert TopoJSON to GeoJSON specifically for the 'ownership' dataset
+        var geoJsonData = topojson.feature(datasetInfo.data, datasetInfo.data.objects[datasetInfo.objectName]);
+        currentLayer = L.geoJSON(geoJsonData, {
+            onEachFeature: function (feature, layer) {
+                // Filter popup content for 'ownership' dataset
+                var props = feature.properties;
+                var popupContent = `Owner: ${props.owner || 'N/A'}<br>` +
+                                   `Address: ${props.address || 'N/A'}<br>` +
+                                   `Address2: ${props.address2 || 'N/A'}<br>` +
+                                   `Street Address: ${props.st_address || 'N/A'}<br>` +
+                                   `Account Type: ${props.accttype || 'N/A'}`;
+                layer.bindPopup(popupContent);
+            }
+        }).addTo(map);
+    } else if (datasetInfo.type === 'geojson') {
+        // Handle GeoJSON datasets
+        currentLayer = L.geoJSON(datasetInfo.data, {
+            style: getStyleForDataset(selectedDataset),
+            onEachFeature: function (feature, layer) {
+                var popupContent = Object.keys(feature.properties).map(function(key) {
+                    return `${key}: ${feature.properties[key]}`;
+                }).join("<br>");
+                layer.bindPopup(popupContent);
+            }
+        }).addTo(map);
+    }
+    if (selectedDataset === 'county_zoning' || selectedDataset === 'toj_zone') {
+        showLegend(selectedDataset); // Implement this function based on your requirements
+    } else {
+        removeLegend(); // Implement this function to remove the legend when not needed
+    }
+}
+
+function getStyleForDataset(datasetName) {
+    return function(feature) {
+        var zoning = feature.properties.zoning;
+        if (datasetName === 'county_zoning'){
+            var color = getCountyZoningColor(zoning); // Implement this function based on your zoning color requirements
+        } 
+        else if (datasetName === 'toj_zone'){
+            var color = getZoningColor(zoning); // Implement this function based on your zoning color requirements
+        }
+        return {
+            color: "#000",
+            weight: 1,
+            fillColor: color,
+            fillOpacity: 0.5
+        };
+    };
+}
+
+function getZoningColor(zoning) {
+    switch (zoning) {
+        case "R": return "#FF0000"; // Red for Residential
+        case "NL-2": return "#A52A2A";
+        case "NL-3": return "#DEB887";
+        case "P": return "#5F9EA0";
+        case "NM-1": return "#7FFF00";
+        case "CR-3": return "#D2691E";
+        case "CR-2": return "#FF7F50";
+        case "NL-4": return "#6495ED";
+        case "BP": return "#FFF8DC";
+        case "CR-1": return "#DC143C";
+        case "PUD-NL-2": return "#00FFFF";
+        case "PUD-NH-1": return "#00008B";
+        case "PUD-NL-3": return "#008B8B";
+        case "PUD-UR": return "#B8860B";
+        case "PUD-NM-2": return "#A9A9A9";
+        case "OR": return "#006400";
+        case "MHP": return "#BDB76B";
+        case "TS-1": return "#8B008B";
+        case "NH-1": return "#556B2F";
+        case "P/SP": return "#FF8C00";
+        case "NM-2": return "#9932CC";
+        case "PR-SK": return "#8B0000";
+        case "NL-5": return "#E9967A";
+        case "DC-1": return "#8FBC8F";
+        case "NL-1": return "#483D8B";
+        case "DC-2": return "#2F4F4F";
+        case "TS-2": return "#00CED1";
+        case "PUD-NL-5": return "#9400D3";
+        default: return "#FFFFFF"; // Default color for undefined zoning
+    }
+}
+function getCountyZoningColor(zoning) {
+    switch (zoning) {
+        case "OP": return "#4682B4"; // SteelBlue
+        case "PUD R2": return "#D2B48C"; // Tan
+        case "None": return "#808080"; // Gray
+        case "WHB": return "#008080"; // Teal
+        case "PUD BP": return "#D8BFD8"; // Thistle
+        case "R1": return "#FF6347"; // Tomato
+        case "PUD AH": return "#40E0D0"; // Turquoise
+        case "AC": return "#EE82EE"; // Violet
+        case "P/SP": return "#F5DEB3"; // Wheat
+        case "S": return "#9ACD32"; // YellowGreen
+        case "R": return "#FF0000"; // Red
+        case "PUD R3": return "#FA8072"; // Salmon
+        case "PUD R1": return "#6A5ACD"; // SlateBlue
+        case "NR-1": return "#2E8B57"; // SeaGreen
+        case "WC": return "#A0522D"; // Sienna
+        case "R2": return "#C0C0C0"; // Silver
+        case "BP": return "#87CEEB"; // SkyBlue
+        case "BC": return "#6B8E23"; // OliveDrab
+        case "PR": return "#FFA07A"; // LightSalmon
+        case "AR": return "#20B2AA"; // LightSeaGreen
+        case "R3": return "#778899"; // LightSlateGray
+        case "PUD - NC": return "#B0C4DE"; // LightSteelBlue
+        case "MHP": return "#FFFFE0"; // LightYellow
+        case "NC": return "#00FF00"; // Lime
+        case "PUD P/SP": return "#32CD32"; // LimeGreen
+        case "P": return "#FFC0CB"; // Pink
+        default: return "#FFFFFF"; // Default color for undefined zoning
+    }
+}
+
+
+function onEachFeature(feature, layer) {
+    // Construct popup content dynamically based on feature properties
+    if (feature.properties) {
+        var popupContent = `Street: ${feature.properties.st_address || 'No address available'}<br>City: ${feature.properties.msag_city || 'No city available'}<br>Zip: ${feature.properties.msag_zip || 'No ZIP code available'}`;
+        layer.bindPopup(popupContent);
+    }
+}
+
+function populateAddressMarkers(addresses) {
+    addresses.forEach(function(address) {
+        var popupContent = `Street: ${address.properties.st_address}<br>City: ${address.properties.msag_city}<br>Zip: ${address.properties.msag_zip}`;
+        var marker = L.marker([address.lat, address.lng]).bindPopup(popupContent); // Bind a popup with metadata
+        markers.addLayer(marker); // Add the marker to the cluster group
+    });
+    // Assuming 'markers' is added to the map in another part of your code
+}
+
+
+legend.onAdd = function (map, selectedDataset) {
+    var div = L.DomUtil.create('div', 'info legend'),
+        grades = selectedDataset === 'toj_zone' ? ["R", "R1", "R2"] : ["OP", "PUD R2", "None"], // Example grades, adjust as necessary
+        getZoningColor = selectedDataset === 'toj_zone' ? getTOJZoningColor : getCountyZoningColor,
+        labels = [];
+
+    // Apply custom styling to the legend card
+    div.style.backgroundColor = 'white';
+    div.style.padding = '10px';
+    div.style.margin = '10px';
+    div.style.border = '2px solid #ccc';
+    div.style.borderRadius = '8px';
+    div.style.boxShadow = '0 0 15px rgba(0, 0, 0, 0.2)';
+
+    // Generate a label with a colored square for each zoning type
+    for (var i = 0; i < grades.length; i++) {
+        labels.push(
+            '<i style="background:' + getZoningColor(grades[i]) + '; width: 18px; height: 18px; float: left; margin-right: 8px; border-radius: 50%;"></i> ' +
+            grades[i]);
+    }
+
+    div.innerHTML = labels.join('<br style="clear: both;">');
+    return div;
+};
+
+
+function showLegend(selectedDataset) {
+    if (selectedDataset === 'county_zoning' || selectedDataset === 'toj_zone') {
+        // Remove the existing legend to avoid duplicates
+        if (map.hasControl(legend)) {
+            map.removeControl(legend);
+        }
+        // Add legend with context of the selected dataset
+        legend.onAdd = function(map) {
+            return legend.onAdd(map, selectedDataset);
+        };
+        legend.addTo(map);
+    } else {
+        legend.remove();
+    }
+}
+
+
+document.getElementById('datasetSelector').addEventListener('change', function(e) {
+    updateLayer(e.target.value);
+});
+
+const basemapLayers = {
+  osm: L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors'
+  }),
+  satellite: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+    attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+    }),
+  blank: L.tileLayer('', {
+    attribution: ''
+  })
+};
+
+// Assuming 'map' is your Leaflet map instance and is globally accessible
+// Assuming 'myGeoJSONLayer' and 'countyBorderLayer' are your GeoJSON and county border layers and are globally accessible
+
+function changeBasemap(selectedBasemap) {
+
+    // Remove all layers except the county border layer
+    map.eachLayer(function(layer) {
+        map.removeLayer(layer);
+        
+    });
+
+    // Add the selected basemap
+    if(basemapLayers[selectedBasemap]){
+        console.log("Adding basemap layer:", selectedBasemap);
+        basemapLayers[selectedBasemap].addTo(map);
+    } else {
+        console.log("Selected basemap not found in basemapLayers:", selectedBasemap);
+    }
+    countyBorderLayer = L.geoJSON(county_border, {
+            style: { color: "#000", weight: 2, fillOpacity: 0 }
+        }).addTo(map);
+    const selectedDataset = document.getElementById('datasetSelector').value;
+    updateLayer(selectedDataset);
+}
+
+
+
+
+
+// Setup event listeners for basemap change
+document.querySelectorAll('.basemap-option').forEach(option => {
+    option.addEventListener('click', function() {
+        const selectedBasemap = this.getAttribute('data-basemap');
+        changeBasemap(selectedBasemap);
+    });
+});
+
+
+</script>
+</body>
+
+</html>
