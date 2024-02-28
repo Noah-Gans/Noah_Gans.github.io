@@ -55,9 +55,9 @@ body { margin: 0; font-family: Arial, sans-serif; }
       margin-right: 10px;
     }
     
-    .osm-thumbnail { background: url('/SourceCode/Frontend/Images/OSM.jpg') no-repeat center center; 
+    .osm-thumbnail { background: url('/Teton_County_Map/Frontend/Images/OSM.jpg') no-repeat center center; 
       background-size: contain;}
-    .satellite-thumbnail { background: url('/SourceCode/Frontend/Images/sat.jpg') no-repeat center center; 
+    .satellite-thumbnail { background: url('/Teton_County_Map/Frontend/Images/sat.jpg') no-repeat center center; 
       background-size: contain; }
     .blank-thumbnail { background: #ccc; /* Gray for blank */ }
     

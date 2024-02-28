@@ -229,16 +229,157 @@ body {
     background-repeat: repeat-y; /* Repeat the pattern vertically */
 }
 
-.top-tab{
-    transform: translateY(-60%);
-    background-color: #f3de8b;
-    border-radius: 20px;
-    border: solid .2px #c2ad79;
-    margin: 20px auto;
-    margin-bottom: 0px;
-    align-items: center;
-    width: 30%;
-    color: black;
-    height: 120px; 
+
+.urban-view-container {
+    display: flex;
+    flex-direction: column; /* Orient children vertically */
+    justify-content: center; /* Center vertically in the container */
+    align-items: center; /* Align horizontally to center */
+    gap: 5%; /* Adjust the gap between items */
+    margin-top: 5%;
+}
+
+.card {
+    flex-basis: calc(50% - 5%); /* Adjust width of the cards */
+    border: 3px solid black;
+    border-radius: 25px;
+    background-color: white;
+    padding: 0;
+    box-sizing: border-box;
+    z-index: 3;
+}
+
+.urban-view-description-card{
+    padding: 20px;
+    width: 60%;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 24px;
+}
+.urban-view-description-card h3{
     text-align: center;
+    margin-top: 0; /* Removes the top margin */
+    margin-bottom: 10px;
+}
+
+.urban-view-description-card h4{
+    text-align: center;
+    margin-top: 0; /* Removes the top margin */
+    margin-bottom: 0;
+}
+
+.urban-view-git {
+    font-size: 30px;
+    padding:30px;
+    align-items: center;
+    justify-content: center;
+    height: 400px;
+    width: 500px;
+    text-align: center;
+    border-radius: 50px;
+    border: solid #29a329 5px; 
+    background-color: #000;/* Specify border without color */
+    color: white;
+    font-family: Arial, sans-serif;
+    margin: 10px 0;
+    cursor: pointer;
+}
+
+
+
+
+.map-container {
+    display: flex;
+    justify-content: center;
+    gap: 5%; /* Adjust the gap between cards */
+    margin-top: 10%;
+}
+
+
+.image-card img {
+    width: 100%;
+    height: 100%;
+    border-radius: 22px; /* Slightly less than card to fit inside */
+}
+
+.description-card {
+    padding: 20px;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 24px;
+}
+.description-card h3{
+    text-align: center;
+    font-size: 36px;
+}
+.description-card h4{
+    text-align: center;
+    }
+/* Additional styling for other elements */
+.top-tab h2 {
+    text-align: center;
+}
+
+
+.br-view-container {
+    display: flex;
+    flex-direction: column; /* Orient children vertically */
+    justify-content: center; /* Center vertically in the container */
+    align-items: center; /* Align horizontally to center */
+    gap: 5%; /* Adjust the gap between items */
+    margin-top: 30%;
+}
+
+
+.br-description-card {
+    
+        padding: 20px;
+        width: 60%;
+        flex-direction: column;
+        justify-content: center;
+        font-size: 24px;
+    }
+.br-description-card h3{
+        text-align: center;
+        margin-top: 0; /* Removes the top margin */
+        margin-bottom: 10px;
+    }
+    
+.br-description-card h4{
+        text-align: center;
+        margin-top: 0; /* Removes the top margin */
+        margin-bottom: 0;
+    }
+
+.br-link {
+    font-size: 30px;
+    padding:30px;
+    align-items: center;
+    justify-content: center;
+    height: 400px;
+    width: 500px;
+    text-align: center;
+    border-radius: 50px;
+    border: solid #2424e4 5px; 
+    background-color: #000;/* Specify border without color */
+    color: white;
+    font-family: Arial, sans-serif;
+    margin: 10px 0;
+    cursor: pointer;
+}
+
+
+
+.top-tab{
+transform: translateY(-60%);
+background-color: #f3de8b;
+border-radius: 20px;
+border: solid .2px #c2ad79;
+margin: 20px auto;
+margin-bottom: 0px;
+align-items: center;
+width: 30%;
+color: black;
+height: 120px; 
+text-align: center;
 }
