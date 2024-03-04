@@ -83,6 +83,7 @@ body {
     border-radius: 75px;
     padding: 10px;
     width: 60%; /* Adjusted width to maintain the layout */
+    margin-bottom: 10%;
 }
 .intro-header{
     text-align: center;
@@ -105,6 +106,8 @@ body {
     padding: 20px;
     width: 40%; /* Adjusted width to maintain the layout */
     border-radius: 15px;
+    margin-bottom: 10%;
+
 }
 
 
