@@ -210,7 +210,7 @@ header {
 
 .title {
     position: absolute; /* This allows you to place your text anywhere over the image */
-    z-index: 2; /* Above the image container */
+    z-index: 10; /* Ensure it's above other elements */
     color: black; /* Choose a color that makes the text stand out over your images */
     text-align: center; /* Center the text */
     top: 65%;
