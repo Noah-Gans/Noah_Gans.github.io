@@ -154,6 +154,8 @@ header {
 
 #photo1 {
     background-image: url('/Noah_Gans.github.io/images/SPC.jpeg'); /* Replace with your image path */
+    background-size: cover; /* Cover the entire area of the element */
+    background-position: center;
     /* Position for photo1 */
     top: 7%;
     left: 35%;
