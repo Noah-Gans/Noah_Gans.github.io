@@ -19,6 +19,23 @@
   </style>
 </head>
 <body>
+    <div id="loading-overlay" style="position:fixed;top:0;left:0;width:100%;height:100%;background-color:rgba(255,255,255,0.8);z-index:100;text-align:center;padding-top:20%;">
+        <h2>Loading Map Data...</h2>
+        <div id="total-progress-container" style="width:80%;height:20px;background-color:#eee;margin:auto;">
+          <div id="total-progress" style="width:0%;height:100%;background-color:green;"></div>
+        </div>
+        <p>Total Progress: <span id="total-progress-text">0%</span></p>
+        <div id="file-progresses">
+          <!-- Individual file progress bars -->
+          <p>Town Of Jackson Zoning: <span id="progress-toj_zone">0%</span></p>
+          <p>Ownership: <span id="progress-ownership">0%</span></p>
+          <p>Easement: <span id="progress-easment">0%</span></p>
+          <p>County Address: <span id="progress-adress">0%</span></p>
+          <p>County Zoning: <span id="progress-county_zoning">0%</span></p>
+          <!-- Add more as needed -->
+        </div>
+    </div>
+    
     <div id="basemap-selector" class="basemap-selector">
         <div class="basemap-option" data-basemap="osm">
           <div class="basemap-thumbnail osm-thumbnail"></div>
