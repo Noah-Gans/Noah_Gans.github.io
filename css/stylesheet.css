@@ -351,7 +351,7 @@ top: 9%;
 
 /* Individual styles for each box to stagger their animation */
 #box1 {
-    background-image: url('/images/thesis\ 3.jpg'); /* Update with the path to your image */
+    background-image: url('/Noah_Gans.github.io/images/thesis\ 3.jpg'); /* Update with the path to your image */
     background-size: cover; /* Ensure the image covers the box */
     background-position: center; /* Center the background image */
     border: 5px solid white;
@@ -368,7 +368,7 @@ top: 9%;
 }
 
 #box2 {
-    background-image: url('/images/pottery.jpg'); /* Update with the path to your image */
+    background-image: url('/Noah_Gans.github.io/images/pottery.jpg'); /* Update with the path to your image */
     background-size:cover; /* Ensure the image covers the box */
     background-position: center; /* Center the background image */
     
@@ -386,7 +386,7 @@ top: 9%;
 }
 
 #box3 {
-    background-image: url('/images/ski.JPG'); /* Update with the path to your image */
+    background-image: url('/Noah_Gans.github.io/images/ski.JPG'); /* Update with the path to your image */
     background-size:contain; /* Ensure the image covers the box */
     background-position: center; /* Center the background image */
     border: 5px solid white;
