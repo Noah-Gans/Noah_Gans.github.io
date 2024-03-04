@@ -139,7 +139,7 @@ header {
 
 
 #central-photo {
-    background: url('/images/image1.jpeg'); /* Replace with your image path */
+    background: url('images/image1.jpeg'); /* Replace with your image path */
     width: 50%; /* Larger size for the central photo */
     height: 40%;
     z-index: 3;
