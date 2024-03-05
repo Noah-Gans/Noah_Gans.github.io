@@ -52,7 +52,7 @@ function fadeInElementsOnScroll() {
     elements.forEach(element => {
         const elementTop = element.getBoundingClientRect().top;
         const viewportHeight = window.innerHeight;
-        const threshold = 500; // You might adjust this based on your needs or make it dynamic based on element classes if they require different thresholds
+        const threshold = 100; // You might adjust this based on your needs or make it dynamic based on element classes if they require different thresholds
 
         if (elementTop < viewportHeight - threshold && !element.classList.contains('visible')) {
             element.classList.add('visible');
